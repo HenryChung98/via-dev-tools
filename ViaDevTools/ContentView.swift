@@ -7,9 +7,6 @@ struct ContentView: View {
                 Section("Device") {
                     link("Device Info", "iphone.gen3") { DeviceInfoView() }
                 }
-                Section("Notifications") {
-                    link("Notification Playground", "bell.badge") { NotificationPlaygroundView() }
-                }
                 Section {
                     link("Clipboard", "doc.on.clipboard") { ClipboardView() }
                     link("Universal Links", "link") { UniversalLinksView() }
@@ -29,6 +26,9 @@ struct ContentView: View {
                     link("JSON", "curlybraces") { JSONView() }
                     link("UUID", "number") { UUIDView() }
                     link("Timestamp", "clock") { TimestampView() }
+                }
+                Section("Notifications") {
+                    link("Notification Playground", "bell.badge") { NotificationPlaygroundView() }
                 }
             }
             .navigationTitle("ViaDevTools")

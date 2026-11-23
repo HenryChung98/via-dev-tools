@@ -1,47 +1,50 @@
 import SwiftUI
 import CoreNFC
 
+/// Uses a tag reader session (not an NDEF one) so the tag's UID and chip type are available.
+/// ponytail: polls ISO 14443/15693 only; FeliCa needs system codes declared in Info.plist.
 @Observable
-final class NFCController: NSObject, NFCNDEFReaderSessionDelegate {
+final class NFCController: NSObject, NFCTagReaderSessionDelegate {
     var records: [NFCNDEFPayload] = []
     var tagInfo: String?
+    var uid: String?
     var error: String?
-    private var session: NFCNDEFReaderSession?
+    private var session: NFCTagReaderSession?
     private var pending: NFCNDEFMessage?  // nil = read, otherwise write this
 
     func begin(writing message: NFCNDEFMessage? = nil) {
         pending = message
         error = nil
-        session = NFCNDEFReaderSession(delegate: self, queue: .main, invalidateAfterFirstRead: false)
+        session = NFCTagReaderSession(pollingOption: [.iso14443, .iso15693], delegate: self, queue: .main)
         session?.alertMessage = message == nil
             ? String(localized: "Hold your iPhone near an NFC tag to read it.")
             : String(localized: "Hold your iPhone near an NFC tag to write to it.")
         session?.begin()
     }
 
-    func readerSession(_ session: NFCNDEFReaderSession, didInvalidateWithError error: Error) {
-        let code = (error as? NFCReaderError)?.code
+    func tagReaderSessionDidBecomeActive(_ session: NFCTagReaderSession) {}
+
+    func tagReaderSession(_ session: NFCTagReaderSession, didInvalidateWithError error: Error) {
         // invalidate() after success and the user's Cancel both report userCanceled
-        if code != .readerSessionInvalidationErrorUserCanceled && code != .readerSessionInvalidationErrorFirstNDEFTagRead {
+        if (error as? NFCReaderError)?.code != .readerSessionInvalidationErrorUserCanceled {
             self.error = error.localizedDescription
         }
         self.session = nil
     }
 
-    // Required by the protocol; not called because didDetect(tags:) is implemented.
-    func readerSession(_ session: NFCNDEFReaderSession, didDetectNDEFs messages: [NFCNDEFMessage]) {}
-
-    func readerSession(_ session: NFCNDEFReaderSession, didDetect tags: [NFCNDEFTag]) {
-        guard tags.count == 1, let tag = tags.first else {
+    func tagReaderSession(_ session: NFCTagReaderSession, didDetect tags: [NFCTag]) {
+        guard tags.count == 1, let tag = tags.first, let described = Self.describe(tag) else {
             session.alertMessage = String(localized: "More than one tag detected. Present only one.")
             session.restartPolling()
             return
         }
+        let ndefTag = described.ndef
         Task {
             do {
                 try await session.connect(to: tag)
-                let (status, capacity) = try await tag.queryNDEFStatus()
-                tagInfo = "\(Self.name(status)) · \(capacity) bytes"
+                uid = described.uid.map { String(format: "%02X", $0) }.joined(separator: ":")
+                let (status, capacity) = try await ndefTag.queryNDEFStatus()
+                tagInfo = "\(described.kind) · \(Self.name(status)) · \(capacity) bytes"
 
                 if let message = pending {
                     guard status == .readWrite else {
@@ -52,14 +55,14 @@ final class NFCController: NSObject, NFCNDEFReaderSessionDelegate {
                     guard message.length <= capacity else {
                         return fail(session, String(localized: "The message is larger than the tag's capacity."))
                     }
-                    try await tag.writeNDEF(message)
+                    try await ndefTag.writeNDEF(message)
                     session.alertMessage = String(localized: "Write complete.")
                 } else {
                     guard status != .notSupported else {
                         return fail(session, String(localized: "This tag is not NDEF formatted."))
                     }
                     do {
-                        records = try await tag.readNDEF().records
+                        records = try await ndefTag.readNDEF().records
                     } catch let e as NFCReaderError where e.code == .ndefReaderSessionErrorZeroLengthMessage {
                         records = []  // formatted but empty tag
                     }
@@ -72,9 +75,26 @@ final class NFCController: NSObject, NFCNDEFReaderSessionDelegate {
         }
     }
 
-    private func fail(_ session: NFCNDEFReaderSession, _ message: String) {
+    private func fail(_ session: NFCTagReaderSession, _ message: String) {
         error = message
         session.invalidate(errorMessage: message)
+    }
+
+    private static func describe(_ tag: NFCTag) -> (kind: String, uid: Data, ndef: any NFCNDEFTag)? {
+        switch tag {
+        case .miFare(let t):
+            let family = switch t.mifareFamily {
+            case .ultralight: " Ultralight"
+            case .plus: " Plus"
+            case .desfire: " DESFire"
+            default: ""
+            }
+            return ("MIFARE\(family)", t.identifier, t)
+        case .iso15693(let t): return ("ISO 15693", t.identifier, t)
+        case .iso7816(let t): return ("ISO 7816", t.identifier, t)
+        case .feliCa(let t): return ("FeliCa", t.currentIDm, t)
+        @unknown default: return nil
+        }
     }
 
     private static func name(_ status: NFCNDEFStatus) -> String {
@@ -88,10 +108,13 @@ final class NFCController: NSObject, NFCNDEFReaderSessionDelegate {
 }
 
 struct NFCView: View {
+    enum WriteKind { case url, text, mime }
+
     @State private var nfc = NFCController()
-    @State private var writeURL = true
+    @State private var kind = WriteKind.url
+    @State private var mimeType = "application/json"
     @State private var writeValue = ""
-    private let available = NFCNDEFReaderSession.readingAvailable
+    private let available = NFCTagReaderSession.readingAvailable
 
     var body: some View {
         List {
@@ -105,6 +128,7 @@ struct NFCView: View {
             Section {
                 Button("Read Tag") { nfc.begin() }.disabled(!available)
                 if let info = nfc.tagInfo { valueRow("Tag", info) }
+                if let uid = nfc.uid { valueRow("UID", uid) }
                 ForEach(nfc.records.indices, id: \.self) { i in
                     record(nfc.records[i], index: i)
                 }
@@ -115,25 +139,44 @@ struct NFCView: View {
             }
 
             Section("Write") {
-                Picker("Type", selection: $writeURL) {
-                    Text("URL").tag(true)
-                    Text("Text").tag(false)
+                Picker("Type", selection: $kind) {
+                    Text("URL").tag(WriteKind.url)
+                    Text("Text").tag(WriteKind.text)
+                    Text("MIME").tag(WriteKind.mime)
                 }
                 .pickerStyle(.segmented)
-                TextField(writeURL ? "https://example.com" : "Text", text: $writeValue)
+                if kind == .mime {
+                    TextField("MIME Type", text: $mimeType)
+                        .textInputAutocapitalization(.never)
+                        .autocorrectionDisabled()
+                }
+                TextField(placeholder, text: $writeValue, axis: kind == .url ? .horizontal : .vertical)
                     .textInputAutocapitalization(.never)
                     .autocorrectionDisabled()
-                    .keyboardType(writeURL ? .URL : .default)
+                    .keyboardType(kind == .url ? .URL : .default)
                 Button("Write to Tag", action: write).disabled(!available || writeValue.isEmpty)
             }
         }
         .navigationTitle("NFC")
     }
 
+    private var placeholder: LocalizedStringKey {
+        switch kind {
+        case .url: "https://example.com"
+        case .text: "Text"
+        case .mime: "Payload"
+        }
+    }
+
     private func write() {
-        let payload = writeURL
-            ? NFCNDEFPayload.wellKnownTypeURIPayload(string: writeValue)
-            : NFCNDEFPayload.wellKnownTypeTextPayload(string: writeValue, locale: .current)
+        let type = mimeType.trimmingCharacters(in: .whitespaces)
+        let payload: NFCNDEFPayload? = switch kind {
+        case .url: NFCNDEFPayload.wellKnownTypeURIPayload(string: writeValue)
+        case .text: NFCNDEFPayload.wellKnownTypeTextPayload(string: writeValue, locale: .current)
+        case .mime: type.contains("/")
+            ? NFCNDEFPayload(format: .media, type: Data(type.utf8), identifier: Data(), payload: Data(writeValue.utf8))
+            : nil
+        }
         guard let payload else {
             nfc.error = String(localized: "Invalid value.")
             return
