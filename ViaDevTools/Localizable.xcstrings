@@ -712,26 +712,6 @@
         }
       }
     },
-    "Push (APNs)" : {
-      "localizations" : {
-        "ko" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "푸시 (APNs)"
-          }
-        }
-      }
-    },
-    "Local Notifications" : {
-      "localizations" : {
-        "ko" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "로컬 알림"
-          }
-        }
-      }
-    },
     "Provisional" : {
       "localizations" : {
         "ko" : {
@@ -792,172 +772,12 @@
         }
       }
     },
-    "Device Token" : {
-      "localizations" : {
-        "ko" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "기기 토큰"
-          }
-        }
-      }
-    },
-    "Share Token" : {
-      "localizations" : {
-        "ko" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "토큰 공유"
-          }
-        }
-      }
-    },
-    "APNs Server" : {
-      "localizations" : {
-        "ko" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "APNs 서버"
-          }
-        }
-      }
-    },
-    "Topic" : {
-      "localizations" : {
-        "ko" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "토픽"
-          }
-        }
-      }
-    },
-    "Debug builds use the sandbox server. TestFlight and App Store builds use production." : {
-      "localizations" : {
-        "ko" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Debug 빌드는 sandbox 서버를, TestFlight와 App Store 빌드는 production 서버를 사용합니다."
-          }
-        }
-      }
-    },
-    "Open Push Notifications Console" : {
-      "localizations" : {
-        "ko" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "푸시 알림 콘솔 열기"
-          }
-        }
-      }
-    },
-    "Share curl Command" : {
-      "localizations" : {
-        "ko" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "curl 명령 공유"
-          }
-        }
-      }
-    },
-    "Send a Test Push" : {
-      "localizations" : {
-        "ko" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "테스트 푸시 보내기"
-          }
-        }
-      }
-    },
-    "Paste the device token into Apple's console, or run the curl command on your Mac with your .p8 key." : {
-      "localizations" : {
-        "ko" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Apple 콘솔에 기기 토큰을 붙여넣거나, Mac에서 .p8 키로 curl 명령을 실행하세요."
-          }
-        }
-      }
-    },
     "Received" : {
       "localizations" : {
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "받은 알림"
-          }
-        }
-      }
-    },
-    "Notifications received by this app appear here." : {
-      "localizations" : {
-        "ko" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "이 앱이 받은 알림이 여기에 표시됩니다."
-          }
-        }
-      }
-    },
-    "Clear" : {
-      "localizations" : {
-        "ko" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "지우기"
-          }
-        }
-      }
-    },
-    "Silent Push" : {
-      "localizations" : {
-        "ko" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "사일런트 푸시"
-          }
-        }
-      }
-    },
-    "Push · Received in Foreground" : {
-      "localizations" : {
-        "ko" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "푸시 · 앱 실행 중 수신"
-          }
-        }
-      }
-    },
-    "Push · Opened" : {
-      "localizations" : {
-        "ko" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "푸시 · 열림"
-          }
-        }
-      }
-    },
-    "Local · Received in Foreground" : {
-      "localizations" : {
-        "ko" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "로컬 · 앱 실행 중 수신"
-          }
-        }
-      }
-    },
-    "Local · Opened" : {
-      "localizations" : {
-        "ko" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "로컬 · 열림"
           }
         }
       }
@@ -977,7 +797,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "내용"
+            "value" : "본문"
           }
         }
       }
@@ -992,72 +812,12 @@
         }
       }
     },
-    "Repeat" : {
-      "localizations" : {
-        "ko" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "반복"
-          }
-        }
-      }
-    },
     "Sound" : {
       "localizations" : {
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "사운드"
-          }
-        }
-      }
-    },
-    "Schedule" : {
-      "localizations" : {
-        "ko" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "예약"
-          }
-        }
-      }
-    },
-    "Repeating notifications need a delay of at least 60 seconds." : {
-      "localizations" : {
-        "ko" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "반복 알림은 최소 60초 이상이어야 합니다."
-          }
-        }
-      }
-    },
-    "Pending" : {
-      "localizations" : {
-        "ko" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "대기 중"
-          }
-        }
-      }
-    },
-    "No pending notifications." : {
-      "localizations" : {
-        "ko" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "대기 중인 알림이 없습니다."
-          }
-        }
-      }
-    },
-    "Remove All" : {
-      "localizations" : {
-        "ko" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "모두 삭제"
           }
         }
       }
@@ -1658,6 +1418,276 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "날짜"
+          }
+        }
+      }
+    },
+    "Notification Playground" : {
+      "localizations" : {
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "알림 플레이그라운드"
+          }
+        }
+      }
+    },
+    "Content" : {
+      "localizations" : {
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "내용"
+          }
+        }
+      }
+    },
+    "Subtitle" : {
+      "localizations" : {
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "부제목"
+          }
+        }
+      }
+    },
+    "Interruption Level" : {
+      "localizations" : {
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "중요도 단계"
+          }
+        }
+      }
+    },
+    "Passive" : {
+      "localizations" : {
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "조용히(Passive)"
+          }
+        }
+      }
+    },
+    "Active" : {
+      "localizations" : {
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "일반(Active)"
+          }
+        }
+      }
+    },
+    "Time Sensitive" : {
+      "localizations" : {
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "시간 민감"
+          }
+        }
+      }
+    },
+    "Thread ID" : {
+      "localizations" : {
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "스레드 ID"
+          }
+        }
+      }
+    },
+    "Badge" : {
+      "localizations" : {
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "배지"
+          }
+        }
+      }
+    },
+    "Image Attachment" : {
+      "localizations" : {
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "이미지 첨부"
+          }
+        }
+      }
+    },
+    "Action Buttons" : {
+      "localizations" : {
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "액션 버튼"
+          }
+        }
+      }
+    },
+    "Options" : {
+      "localizations" : {
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "옵션"
+          }
+        }
+      }
+    },
+    "Send several with the same Thread ID to see grouping. Long-press a notification to see its image and actions. Passive notifications arrive silently, without lighting the screen." : {
+      "localizations" : {
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "같은 스레드 ID로 여러 개를 보내면 묶이는 모습을 볼 수 있습니다. 알림을 길게 누르면 이미지와 액션이 보입니다. Passive 알림은 화면을 켜지 않고 조용히 도착합니다."
+          }
+        }
+      }
+    },
+    "Send" : {
+      "localizations" : {
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "보내기"
+          }
+        }
+      }
+    },
+    "Lock the iPhone or leave the app before it fires to see it on the Lock Screen." : {
+      "localizations" : {
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "잠금 화면에서 보려면 알림이 오기 전에 iPhone을 잠그거나 앱을 나가세요."
+          }
+        }
+      }
+    },
+    "Size" : {
+      "localizations" : {
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "크기"
+          }
+        }
+      }
+    },
+    "APNs Payload" : {
+      "localizations" : {
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "APNs 페이로드"
+          }
+        }
+      }
+    },
+    "The same options as a remote push. Images need a Notification Service Extension in your app to download and attach them, and the category must be registered by your app." : {
+      "localizations" : {
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "같은 옵션을 원격 푸시로 보낼 때의 payload입니다. 이미지는 앱에 Notification Service Extension이 있어야 내려받아 붙일 수 있고, category는 앱에서 등록해야 합니다."
+          }
+        }
+      }
+    },
+    "Notifications appear here when they arrive or are opened." : {
+      "localizations" : {
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "알림이 도착하거나 열리면 여기에 표시됩니다."
+          }
+        }
+      }
+    },
+    "Opened" : {
+      "localizations" : {
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "열림"
+          }
+        }
+      }
+    },
+    "Received in Foreground" : {
+      "localizations" : {
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "앱 실행 중 수신"
+          }
+        }
+      }
+    },
+    "Action" : {
+      "localizations" : {
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "액션"
+          }
+        }
+      }
+    },
+    "Clear Badge" : {
+      "localizations" : {
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "배지 지우기"
+          }
+        }
+      }
+    },
+    "Remove Pending (%lld) and Delivered" : {
+      "localizations" : {
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "대기 중(%lld)·전달된 알림 모두 삭제"
+          }
+        }
+      }
+    },
+    "Accept" : {
+      "localizations" : {
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "수락"
+          }
+        }
+      }
+    },
+    "Reply" : {
+      "localizations" : {
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "답장"
+          }
+        }
+      }
+    },
+    "Delete" : {
+      "localizations" : {
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "삭제"
           }
         }
       }

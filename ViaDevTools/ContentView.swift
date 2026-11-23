@@ -8,8 +8,7 @@ struct ContentView: View {
                     link("Device Info", "iphone.gen3") { DeviceInfoView() }
                 }
                 Section("Notifications") {
-                    link("Push (APNs)", "bell.badge") { PushView() }
-                    link("Local Notifications", "calendar.badge.clock") { LocalNotificationsView() }
+                    link("Notification Playground", "bell.badge") { NotificationPlaygroundView() }
                 }
                 Section {
                     link("Clipboard", "doc.on.clipboard") { ClipboardView() }

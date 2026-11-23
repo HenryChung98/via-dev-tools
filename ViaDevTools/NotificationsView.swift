@@ -5,21 +5,16 @@ import UserNotifications
 final class NotificationStore: NSObject, UNUserNotificationCenterDelegate {
     static let shared = NotificationStore()
 
-    enum Event { case presented, opened, silent }
-
     struct Received: Identifiable {
         let id = UUID()
         let date = Date()
-        let event: Event
-        let isRemote: Bool
-        let title: String?
-        let body: String?
-        let payload: String
+        let opened: Bool
+        let title: String
+        let thread: String
+        let action: String?  // action identifier, plus typed text for the reply action
     }
 
     var authorization = UNAuthorizationStatus.notDetermined
-    var deviceToken: String?
-    var registrationError: String?
     var received: [Received] = []
 
     func refreshAuthorization() async {
@@ -31,29 +26,22 @@ final class NotificationStore: NSObject, UNUserNotificationCenterDelegate {
         await refreshAuthorization()
     }
 
-    nonisolated static func json(_ userInfo: [AnyHashable: Any]) -> String {
-        (try? JSONSerialization.data(withJSONObject: userInfo, options: [.prettyPrinted, .sortedKeys]))
-            .flatMap { String(data: $0, encoding: .utf8) } ?? "\(userInfo)"
-    }
-
-    func record(_ event: Event, title: String?, body: String?, payload: String, isRemote: Bool = true) {
-        received.insert(Received(event: event, isRemote: isRemote, title: title, body: body, payload: payload), at: 0)
-    }
-
-    private func record(_ event: Event, _ n: UNNotification) {
+    private func record(_ n: UNNotification, opened: Bool, action: String? = nil) {
         let c = n.request.content
-        record(event, title: c.title, body: c.body, payload: Self.json(c.userInfo),
-               isRemote: n.request.trigger is UNPushNotificationTrigger)
+        received.insert(Received(opened: opened, title: c.title, thread: c.threadIdentifier, action: action), at: 0)
     }
 
     func userNotificationCenter(_ center: UNUserNotificationCenter,
                                 willPresent notification: UNNotification) async -> UNNotificationPresentationOptions {
-        record(.presented, notification)
-        return [.banner, .list, .sound]  // show banners even while the app is open
+        record(notification, opened: false)
+        return [.banner, .list, .sound, .badge]  // show banners even while the app is open
     }
 
     func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse) async {
-        record(.opened, response.notification)
+        var action: String?
+        if response.actionIdentifier != UNNotificationDefaultActionIdentifier { action = response.actionIdentifier }
+        if let text = (response as? UNTextInputNotificationResponse)?.userText { action = "\(action ?? "") “\(text)”" }
+        record(response.notification, opened: true, action: action)
     }
 
     var authorizationText: String {
@@ -68,210 +56,212 @@ final class NotificationStore: NSObject, UNUserNotificationCenterDelegate {
     }
 }
 
-/// Permission row + request/settings button, shared by both notification screens.
-struct NotificationPermissionSection: View {
+struct NotificationPlaygroundView: View {
+    enum Level: String, CaseIterable {
+        case passive, active, timeSensitive = "time-sensitive"  // raw value = APNs "interruption-level"
+
+        var value: UNNotificationInterruptionLevel {
+            switch self {
+            case .passive: .passive
+            case .active: .active
+            case .timeSensitive: .timeSensitive
+            }
+        }
+
+        var label: LocalizedStringKey {
+            switch self {
+            case .passive: "Passive"
+            case .active: "Active"
+            case .timeSensitive: "Time Sensitive"
+            }
+        }
+    }
+
+    private static let category = "VIADEVTOOLS_PLAYGROUND"
+
     let store = NotificationStore.shared
     @Environment(\.openURL) private var openURL
-
-    var body: some View {
-        Section("Permission") {
-            valueRow("Status", store.authorizationText)
-            if store.authorization == .notDetermined {
-                Button("Request Permission") { Task { await store.requestAuthorization() } }
-            } else if store.authorization == .denied {
-                Button("Open App Settings") { openURL(URL(string: UIApplication.openNotificationSettingsURLString)!) }
-            }
-        }
-        .task { await store.refreshAuthorization() }
-        .onReceive(NotificationCenter.default.publisher(for: UIApplication.didBecomeActiveNotification)) { _ in
-            Task { await store.refreshAuthorization() }
-        }
-    }
-}
-
-struct PushView: View {
-    let store = NotificationStore.shared
-    private let topic = Bundle.main.bundleIdentifier ?? ""
-    // ponytail: build config approximates the APNs environment; a Release build signed for development would actually be sandbox
-    #if DEBUG
-    private let host = "api.sandbox.push.apple.com"
-    #else
-    private let host = "api.push.apple.com"
-    #endif
-
-    var body: some View {
-        List {
-            NotificationPermissionSection()
-
-            Section {
-                if let token = store.deviceToken {
-                    Text(verbatim: token).font(.callout.monospaced()).textSelection(.enabled)
-                    ShareLink(item: token) { Label("Share Token", systemImage: "square.and.arrow.up") }
-                } else if let error = store.registrationError {
-                    Text(verbatim: error).foregroundStyle(.red)
-                } else {
-                    ProgressView()
-                }
-                valueRow("APNs Server", host)
-                valueRow("Topic", topic)
-            } header: {
-                Text("Device Token")
-            } footer: {
-                Text("Debug builds use the sandbox server. TestFlight and App Store builds use production.")
-            }
-
-            Section {
-                Link(destination: URL(string: "https://icloud.developer.apple.com/dashboard/notifications")!) {
-                    Label("Open Push Notifications Console", systemImage: "safari")
-                }
-                if store.deviceToken != nil {
-                    ShareLink(item: curlScript) { Label("Share curl Command", systemImage: "terminal") }
-                }
-            } header: {
-                Text("Send a Test Push")
-            } footer: {
-                Text("Paste the device token into Apple's console, or run the curl command on your Mac with your .p8 key.")
-            }
-
-            Section("Received") {
-                if store.received.isEmpty {
-                    Text("Notifications received by this app appear here.").foregroundStyle(.secondary)
-                }
-                ForEach(store.received) { r in
-                    VStack(alignment: .leading, spacing: 4) {
-                        HStack {
-                            Text(label(r))
-                            Spacer()
-                            Text(r.date, style: .time)
-                        }
-                        .font(.caption).foregroundStyle(.secondary)
-                        if let title = r.title, !title.isEmpty { Text(verbatim: title).bold() }
-                        if let body = r.body, !body.isEmpty { Text(verbatim: body) }
-                        Text(verbatim: r.payload).font(.caption.monospaced()).textSelection(.enabled)
-                    }
-                }
-                if !store.received.isEmpty {
-                    Button("Clear", role: .destructive) { store.received.removeAll() }
-                }
-            }
-        }
-        .navigationTitle("Push (APNs)")
-    }
-
-    private func label(_ r: NotificationStore.Received) -> LocalizedStringKey {
-        switch (r.event, r.isRemote) {
-        case (.silent, _): "Silent Push"
-        case (.presented, true): "Push · Received in Foreground"
-        case (.opened, true): "Push · Opened"
-        case (.presented, false): "Local · Received in Foreground"
-        case (.opened, false): "Local · Opened"
-        }
-    }
-
-    // Apple's documented command-line recipe: sign an ES256 JWT with openssl, send with curl over HTTP/2.
-    private var curlScript: String {
-        """
-        TEAM_ID=YOUR_TEAM_ID
-        KEY_ID=YOUR_KEY_ID
-        AUTH_KEY_PATH=AuthKey_$KEY_ID.p8
-        TOPIC=\(topic)
-        DEVICE_TOKEN=\(store.deviceToken ?? "")
-        APNS_HOST=\(host)
-
-        b64() { openssl base64 -e -A | tr -- '+/' '-_' | tr -d =; }
-        HEADER=$(printf '{"alg":"ES256","kid":"%s"}' "$KEY_ID" | b64)
-        CLAIMS=$(printf '{"iss":"%s","iat":%d}' "$TEAM_ID" "$(date +%s)" | b64)
-        SIG=$(printf '%s' "$HEADER.$CLAIMS" | openssl dgst -binary -sha256 -sign "$AUTH_KEY_PATH" | b64)
-
-        curl -v --http2 \\
-          -H "apns-topic: $TOPIC" -H "apns-push-type: alert" \\
-          -H "authorization: bearer $HEADER.$CLAIMS.$SIG" \\
-          -d '{"aps":{"alert":{"title":"ViaDevTools","body":"Test push"},"sound":"default"}}' \\
-          "https://$APNS_HOST/3/device/$DEVICE_TOKEN"
-        """
-    }
-}
-
-struct LocalNotificationsView: View {
     @State private var title = "ViaDevTools"
+    @State private var subtitle = ""
     @State private var message = "Test notification"
-    @State private var delay = 5
-    @State private var repeats = false
+    @State private var level = Level.active
+    @State private var thread = ""
+    @State private var badgeOn = false
+    @State private var badge = 1
     @State private var sound = true
-    @State private var pending: [UNNotificationRequest] = []
+    @State private var image = false
+    @State private var actions = false
+    @State private var delay = 3
+    @State private var pendingCount = 0
     @State private var error: String?
     private let center = UNUserNotificationCenter.current()
 
     var body: some View {
         List {
-            NotificationPermissionSection()
+            Section("Permission") {
+                valueRow("Status", store.authorizationText)
+                if store.authorization == .notDetermined {
+                    Button("Request Permission") { Task { await store.requestAuthorization() } }
+                } else if store.authorization == .denied {
+                    Button("Open App Settings") { openURL(URL(string: UIApplication.openNotificationSettingsURLString)!) }
+                }
+            }
+
+            Section("Content") {
+                TextField("Title", text: $title)
+                TextField("Subtitle", text: $subtitle)
+                TextField("Body", text: $message, axis: .vertical)
+            }
 
             Section {
-                TextField("Title", text: $title)
-                TextField("Body", text: $message)
+                Picker("Interruption Level", selection: $level) {
+                    ForEach(Level.allCases, id: \.self) { Text($0.label) }
+                }
+                TextField("Thread ID", text: $thread)
+                    .textInputAutocapitalization(.never)
+                    .autocorrectionDisabled()
+                Toggle("Badge", isOn: $badgeOn)
+                if badgeOn { Stepper(value: $badge, in: 0...999) { Text(verbatim: "\(badge)") } }
+                Toggle("Sound", isOn: $sound)
+                Toggle("Image Attachment", isOn: $image)
+                Toggle("Action Buttons", isOn: $actions)
+            } header: {
+                Text("Options")
+            } footer: {
+                Text("Send several with the same Thread ID to see grouping. Long-press a notification to see its image and actions. Passive notifications arrive silently, without lighting the screen.")
+            }
+
+            Section {
                 LabeledContent("Delay (seconds)") {
-                    TextField("5", value: $delay, format: .number)
+                    TextField("3", value: $delay, format: .number)
                         .keyboardType(.numberPad)
                         .multilineTextAlignment(.trailing)
                 }
-                Toggle("Repeat", isOn: $repeats)
-                Toggle("Sound", isOn: $sound)
-                Button("Schedule") { Task { await schedule() } }
+                Button("Send") { Task { await send() } }
                 if let error { Text(verbatim: error).foregroundStyle(.red) }
-            } header: {
-                Text("Schedule")
             } footer: {
-                Text("Repeating notifications need a delay of at least 60 seconds.")
+                Text("Lock the iPhone or leave the app before it fires to see it on the Lock Screen.")
             }
 
-            Section("Pending") {
-                if pending.isEmpty { Text("No pending notifications.").foregroundStyle(.secondary) }
-                ForEach(pending, id: \.identifier) { r in
-                    VStack(alignment: .leading) {
-                        Text(verbatim: r.content.title)
-                        if let next = (r.trigger as? UNTimeIntervalNotificationTrigger)?.nextTriggerDate() {
-                            Text(next, style: .relative).font(.caption).foregroundStyle(.secondary)
+            Section {
+                Text(verbatim: payloadJSON).font(.caption.monospaced()).textSelection(.enabled)
+                let size = Data(compactPayloadJSON.utf8).count
+                valueRow("Size", "\(size) / 4096 bytes")
+                    .foregroundStyle(size > 4096 ? .red : .primary)
+                ShareLink(item: payloadJSON) { Label("Share", systemImage: "square.and.arrow.up") }
+            } header: {
+                Text("APNs Payload")
+            } footer: {
+                Text("The same options as a remote push. Images need a Notification Service Extension in your app to download and attach them, and the category must be registered by your app.")
+            }
+
+            Section("Received") {
+                if store.received.isEmpty {
+                    Text("Notifications appear here when they arrive or are opened.").foregroundStyle(.secondary)
+                }
+                ForEach(store.received) { r in
+                    VStack(alignment: .leading, spacing: 2) {
+                        HStack {
+                            Text(r.opened ? "Opened" : "Received in Foreground")
+                            Spacer()
+                            Text(r.date, style: .time)
                         }
+                        .font(.caption).foregroundStyle(.secondary)
+                        Text(verbatim: r.title)
+                        if !r.thread.isEmpty { valueRow("Thread ID", r.thread).font(.caption) }
+                        if let action = r.action { valueRow("Action", action).font(.caption) }
                     }
                 }
-                .onDelete { offsets in
-                    center.removePendingNotificationRequests(withIdentifiers: offsets.map { pending[$0].identifier })
-                    pending.remove(atOffsets: offsets)
-                }
-                if !pending.isEmpty {
-                    Button("Remove All", role: .destructive) {
-                        center.removeAllPendingNotificationRequests()
-                        pending = []
-                    }
+            }
+
+            Section {
+                Button("Clear Badge") { center.setBadgeCount(0) }
+                Button("Remove Pending (\(pendingCount)) and Delivered", role: .destructive) {
+                    center.removeAllPendingNotificationRequests()
+                    center.removeAllDeliveredNotifications()
+                    store.received.removeAll()
+                    pendingCount = 0
                 }
             }
         }
-        .navigationTitle("Local Notifications")
-        .task { await reload() }
-        .refreshable { await reload() }
+        .navigationTitle("Notification Playground")
+        .task {
+            await store.refreshAuthorization()
+            await refreshPending()
+        }
+        .onChange(of: store.received.count) { Task { await refreshPending() } }  // one just fired while the app was open
+        .onReceive(NotificationCenter.default.publisher(for: UIApplication.didBecomeActiveNotification)) { _ in
+            Task {
+                await store.refreshAuthorization()
+                await refreshPending()
+            }
+        }
     }
 
-    private func schedule() async {
+    private func send() async {
         error = nil
-        let store = NotificationStore.shared
         if store.authorization == .notDetermined { await store.requestAuthorization() }
 
         let content = UNMutableNotificationContent()
         content.title = title
+        content.subtitle = subtitle
         content.body = message
+        content.interruptionLevel = level.value
+        content.threadIdentifier = thread
+        if badgeOn { content.badge = badge as NSNumber }
         if sound { content.sound = .default }
-        let seconds = TimeInterval(max(delay, repeats ? 60 : 1))
-        let request = UNNotificationRequest(identifier: UUID().uuidString, content: content,
-                                            trigger: UNTimeIntervalNotificationTrigger(timeInterval: seconds, repeats: repeats))
+        if actions {
+            center.setNotificationCategories([UNNotificationCategory(identifier: Self.category, actions: [
+                UNNotificationAction(identifier: "ACCEPT", title: String(localized: "Accept")),
+                UNTextInputNotificationAction(identifier: "REPLY", title: String(localized: "Reply"), textInputButtonTitle: String(localized: "Send"), textInputPlaceholder: ""),
+                UNNotificationAction(identifier: "DELETE", title: String(localized: "Delete"), options: .destructive),
+            ], intentIdentifiers: [])])
+            content.categoryIdentifier = Self.category
+        }
         do {
-            try await center.add(request)
+            if image { content.attachments = [try sampleAttachment()] }
+            let trigger = UNTimeIntervalNotificationTrigger(timeInterval: TimeInterval(max(delay, 1)), repeats: false)
+            try await center.add(UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: trigger))
         } catch {
             self.error = error.localizedDescription
         }
-        await reload()
+        await refreshPending()
     }
 
-    private func reload() async {
-        pending = await center.pendingNotificationRequests()
+    /// The system moves attachment files into its own store, so write a fresh one each time.
+    private func sampleAttachment() throws -> UNNotificationAttachment {
+        let symbol = UIImage(systemName: "hammer.fill", withConfiguration: UIImage.SymbolConfiguration(pointSize: 160))!
+            .withTintColor(.systemBlue, renderingMode: .alwaysOriginal)
+        let png = UIGraphicsImageRenderer(size: CGSize(width: 400, height: 300)).pngData { ctx in
+            UIColor.secondarySystemBackground.setFill()
+            ctx.fill(CGRect(x: 0, y: 0, width: 400, height: 300))
+            symbol.draw(at: CGPoint(x: 200 - symbol.size.width / 2, y: 150 - symbol.size.height / 2))
+        }
+        let url = FileManager.default.temporaryDirectory.appendingPathComponent("\(UUID().uuidString).png")
+        try png.write(to: url)
+        return try UNNotificationAttachment(identifier: "image", url: url)
+    }
+
+    private func refreshPending() async {
+        pendingCount = await center.pendingNotificationRequests().count
+    }
+
+    private var payload: [String: Any] {
+        var alert = ["title": title, "body": message]
+        if !subtitle.isEmpty { alert["subtitle"] = subtitle }
+        var aps: [String: Any] = ["alert": alert, "interruption-level": level.rawValue]
+        if !thread.isEmpty { aps["thread-id"] = thread }
+        if badgeOn { aps["badge"] = badge }
+        if sound { aps["sound"] = "default" }
+        if actions { aps["category"] = Self.category }
+        if image { aps["mutable-content"] = 1 }
+        return ["aps": aps]
+    }
+
+    private var payloadJSON: String { json([.prettyPrinted, .sortedKeys, .withoutEscapingSlashes]) }
+    private var compactPayloadJSON: String { json([.sortedKeys, .withoutEscapingSlashes]) }  // what APNs counts toward 4 KB
+
+    private func json(_ options: JSONSerialization.WritingOptions) -> String {
+        (try? JSONSerialization.data(withJSONObject: payload, options: options)).flatMap { String(data: $0, encoding: .utf8) } ?? ""
     }
 }
