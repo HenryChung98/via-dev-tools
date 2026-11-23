@@ -1,0 +1,36 @@
+{
+  "sourceLanguage" : "en",
+  "version" : "1.0",
+  "strings" : {
+    "NSUserTrackingUsageDescription" : {
+      "localizations" : {
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "개발·테스트 목적으로 이 기기의 광고 식별자(IDFA)를 화면에 표시하는 데만 사용합니다."
+          }
+        }
+      }
+    },
+    "NFCReaderUsageDescription" : {
+      "localizations" : {
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "사용자가 스캔한 NFC 태그를 읽고 쓰는 데 사용합니다."
+          }
+        }
+      }
+    },
+    "NSBluetoothAlwaysUsageDescription" : {
+      "localizations" : {
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "주변 Bluetooth LE 기기를 검색하고 광고 데이터를 표시하는 데 사용합니다."
+          }
+        }
+      }
+    }
+  }
+}

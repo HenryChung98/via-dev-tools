@@ -1,21 +1,28 @@
-//
-//  ContentView.swift
-//  ViaDevTools
-//
-//  Created by 정현규 on 2026-11-22.
-//
-
 import SwiftUI
 
 struct ContentView: View {
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+        NavigationStack {
+            List {
+                Section("Device") {
+                    NavigationLink { DeviceInfoView() } label: {
+                        Label("Device Info", systemImage: "iphone.gen3")
+                    }
+                }
+                Section("Hardware") {
+                    NavigationLink { NFCView() } label: {
+                        Label("NFC", systemImage: "sensor.tag.radiowaves.forward")
+                    }
+                    NavigationLink { BluetoothView() } label: {
+                        Label("Bluetooth LE", systemImage: "antenna.radiowaves.left.and.right")
+                    }
+                    NavigationLink { HapticsView() } label: {
+                        Label("Haptics", systemImage: "iphone.radiowaves.left.and.right")
+                    }
+                }
+            }
+            .navigationTitle("ViaDevTools")
         }
-        .padding()
     }
 }
 
