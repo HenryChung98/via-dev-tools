@@ -34,6 +34,7 @@ struct ClipboardView: View {
         .navigationTitle("Clipboard")
         .onAppear(perform: refresh)
         .onReceive(NotificationCenter.default.publisher(for: UIApplication.didBecomeActiveNotification)) { _ in refresh() }
+        .onReceive(NotificationCenter.default.publisher(for: UIPasteboard.changedNotification)) { _ in refresh() }  // copied inside this app
     }
 
     private func refresh() {

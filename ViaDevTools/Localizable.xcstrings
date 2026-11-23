@@ -1252,16 +1252,6 @@
         }
       }
     },
-    "Sort Keys" : {
-      "localizations" : {
-        "ko" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "키 정렬"
-          }
-        }
-      }
-    },
     "Formatted" : {
       "localizations" : {
         "ko" : {
@@ -1392,12 +1382,12 @@
         }
       }
     },
-    "Seconds or milliseconds are detected automatically." : {
+    "Seconds, milliseconds, microseconds or nanoseconds are detected automatically." : {
       "localizations" : {
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "초 단위와 밀리초 단위를 자동으로 구분합니다."
+            "value" : "초, 밀리초, 마이크로초, 나노초 단위를 자동으로 구분합니다."
           }
         }
       }

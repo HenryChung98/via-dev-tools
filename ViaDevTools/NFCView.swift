@@ -43,6 +43,8 @@ final class NFCController: NSObject, NFCTagReaderSessionDelegate {
             do {
                 try await session.connect(to: tag)
                 uid = described.uid.map { String(format: "%02X", $0) }.joined(separator: ":")
+                tagInfo = nil  // drop the previous tag's results, even if this one fails below
+                records = []
                 let (status, capacity) = try await ndefTag.queryNDEFStatus()
                 tagInfo = "\(described.kind) · \(Self.name(status)) · \(capacity) bytes"
 
@@ -56,6 +58,7 @@ final class NFCController: NSObject, NFCTagReaderSessionDelegate {
                         return fail(session, String(localized: "The message is larger than the tag's capacity."))
                     }
                     try await ndefTag.writeNDEF(message)
+                    records = message.records  // the tag now holds exactly this
                     session.alertMessage = String(localized: "Write complete.")
                 } else {
                     guard status != .notSupported else {
