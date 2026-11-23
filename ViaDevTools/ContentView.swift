@@ -5,24 +5,39 @@ struct ContentView: View {
         NavigationStack {
             List {
                 Section("Device") {
-                    NavigationLink { DeviceInfoView() } label: {
-                        Label("Device Info", systemImage: "iphone.gen3")
-                    }
+                    link("Device Info", "iphone.gen3") { DeviceInfoView() }
+                }
+                Section("Notifications") {
+                    link("Push (APNs)", "bell.badge") { PushView() }
+                    link("Local Notifications", "calendar.badge.clock") { LocalNotificationsView() }
+                }
+                Section {
+                    link("Clipboard", "doc.on.clipboard") { ClipboardView() }
+                    link("Universal Links", "link") { UniversalLinksView() }
+                } header: {
+                    Text("Inspectors")
+                } footer: {
+                    Label("To inspect share sheet data, share anything to ViaDevTools from another app.", systemImage: "square.and.arrow.up")
                 }
                 Section("Hardware") {
-                    NavigationLink { NFCView() } label: {
-                        Label("NFC", systemImage: "sensor.tag.radiowaves.forward")
-                    }
-                    NavigationLink { BluetoothView() } label: {
-                        Label("Bluetooth LE", systemImage: "antenna.radiowaves.left.and.right")
-                    }
-                    NavigationLink { HapticsView() } label: {
-                        Label("Haptics", systemImage: "iphone.radiowaves.left.and.right")
-                    }
+                    link("NFC", "sensor.tag.radiowaves.forward") { NFCView() }
+                    link("Bluetooth LE", "antenna.radiowaves.left.and.right") { BluetoothView() }
+                    link("Haptics", "iphone.radiowaves.left.and.right") { HapticsView() }
+                }
+                Section("Toolbox") {
+                    link("JWT", "key.horizontal") { JWTView() }
+                    link("Base64", "textformat.abc") { Base64View() }
+                    link("JSON", "curlybraces") { JSONView() }
+                    link("UUID", "number") { UUIDView() }
+                    link("Timestamp", "clock") { TimestampView() }
                 }
             }
             .navigationTitle("ViaDevTools")
         }
+    }
+
+    private func link(_ title: LocalizedStringKey, _ symbol: String, destination: () -> some View) -> some View {
+        NavigationLink(destination: destination()) { Label(title, systemImage: symbol) }
     }
 }
 

@@ -671,6 +671,996 @@
           }
         }
       }
+    },
+    "Notifications" : {
+      "localizations" : {
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "알림"
+          }
+        }
+      }
+    },
+    "Inspectors" : {
+      "localizations" : {
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "인스펙터"
+          }
+        }
+      }
+    },
+    "Toolbox" : {
+      "localizations" : {
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "툴박스"
+          }
+        }
+      }
+    },
+    "To inspect share sheet data, share anything to ViaDevTools from another app." : {
+      "localizations" : {
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "공유 시트 데이터를 보려면 다른 앱에서 아무 항목이나 ViaDevTools로 공유하세요."
+          }
+        }
+      }
+    },
+    "Push (APNs)" : {
+      "localizations" : {
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "푸시 (APNs)"
+          }
+        }
+      }
+    },
+    "Local Notifications" : {
+      "localizations" : {
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "로컬 알림"
+          }
+        }
+      }
+    },
+    "Provisional" : {
+      "localizations" : {
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "임시 허용"
+          }
+        }
+      }
+    },
+    "Ephemeral" : {
+      "localizations" : {
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "일시적 허용"
+          }
+        }
+      }
+    },
+    "Permission" : {
+      "localizations" : {
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "권한"
+          }
+        }
+      }
+    },
+    "Status" : {
+      "localizations" : {
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "상태"
+          }
+        }
+      }
+    },
+    "Request Permission" : {
+      "localizations" : {
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "권한 요청"
+          }
+        }
+      }
+    },
+    "Open App Settings" : {
+      "localizations" : {
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "앱 설정 열기"
+          }
+        }
+      }
+    },
+    "Device Token" : {
+      "localizations" : {
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "기기 토큰"
+          }
+        }
+      }
+    },
+    "Share Token" : {
+      "localizations" : {
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "토큰 공유"
+          }
+        }
+      }
+    },
+    "APNs Server" : {
+      "localizations" : {
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "APNs 서버"
+          }
+        }
+      }
+    },
+    "Topic" : {
+      "localizations" : {
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "토픽"
+          }
+        }
+      }
+    },
+    "Debug builds use the sandbox server. TestFlight and App Store builds use production." : {
+      "localizations" : {
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Debug 빌드는 sandbox 서버를, TestFlight와 App Store 빌드는 production 서버를 사용합니다."
+          }
+        }
+      }
+    },
+    "Open Push Notifications Console" : {
+      "localizations" : {
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "푸시 알림 콘솔 열기"
+          }
+        }
+      }
+    },
+    "Share curl Command" : {
+      "localizations" : {
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "curl 명령 공유"
+          }
+        }
+      }
+    },
+    "Send a Test Push" : {
+      "localizations" : {
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "테스트 푸시 보내기"
+          }
+        }
+      }
+    },
+    "Paste the device token into Apple's console, or run the curl command on your Mac with your .p8 key." : {
+      "localizations" : {
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple 콘솔에 기기 토큰을 붙여넣거나, Mac에서 .p8 키로 curl 명령을 실행하세요."
+          }
+        }
+      }
+    },
+    "Received" : {
+      "localizations" : {
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "받은 알림"
+          }
+        }
+      }
+    },
+    "Notifications received by this app appear here." : {
+      "localizations" : {
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "이 앱이 받은 알림이 여기에 표시됩니다."
+          }
+        }
+      }
+    },
+    "Clear" : {
+      "localizations" : {
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "지우기"
+          }
+        }
+      }
+    },
+    "Silent Push" : {
+      "localizations" : {
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "사일런트 푸시"
+          }
+        }
+      }
+    },
+    "Push · Received in Foreground" : {
+      "localizations" : {
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "푸시 · 앱 실행 중 수신"
+          }
+        }
+      }
+    },
+    "Push · Opened" : {
+      "localizations" : {
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "푸시 · 열림"
+          }
+        }
+      }
+    },
+    "Local · Received in Foreground" : {
+      "localizations" : {
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "로컬 · 앱 실행 중 수신"
+          }
+        }
+      }
+    },
+    "Local · Opened" : {
+      "localizations" : {
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "로컬 · 열림"
+          }
+        }
+      }
+    },
+    "Title" : {
+      "localizations" : {
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "제목"
+          }
+        }
+      }
+    },
+    "Body" : {
+      "localizations" : {
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "내용"
+          }
+        }
+      }
+    },
+    "Delay (seconds)" : {
+      "localizations" : {
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "지연 (초)"
+          }
+        }
+      }
+    },
+    "Repeat" : {
+      "localizations" : {
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "반복"
+          }
+        }
+      }
+    },
+    "Sound" : {
+      "localizations" : {
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "사운드"
+          }
+        }
+      }
+    },
+    "Schedule" : {
+      "localizations" : {
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "예약"
+          }
+        }
+      }
+    },
+    "Repeating notifications need a delay of at least 60 seconds." : {
+      "localizations" : {
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "반복 알림은 최소 60초 이상이어야 합니다."
+          }
+        }
+      }
+    },
+    "Pending" : {
+      "localizations" : {
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "대기 중"
+          }
+        }
+      }
+    },
+    "No pending notifications." : {
+      "localizations" : {
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "대기 중인 알림이 없습니다."
+          }
+        }
+      }
+    },
+    "Remove All" : {
+      "localizations" : {
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "모두 삭제"
+          }
+        }
+      }
+    },
+    "Clipboard" : {
+      "localizations" : {
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "클립보드"
+          }
+        }
+      }
+    },
+    "Items" : {
+      "localizations" : {
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "항목 수"
+          }
+        }
+      }
+    },
+    "Change Count" : {
+      "localizations" : {
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "변경 횟수"
+          }
+        }
+      }
+    },
+    "Read Clipboard" : {
+      "localizations" : {
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "클립보드 읽기"
+          }
+        }
+      }
+    },
+    "Type identifiers are listed without reading the contents. Reading the values shows the system paste prompt." : {
+      "localizations" : {
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "유형 식별자는 내용을 읽지 않고 표시됩니다. 값을 읽으면 시스템 붙여넣기 허용 창이 나타납니다."
+          }
+        }
+      }
+    },
+    "Item %lld" : {
+      "localizations" : {
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "항목 %lld"
+          }
+        }
+      }
+    },
+    "The clipboard is empty." : {
+      "localizations" : {
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "클립보드가 비어 있습니다."
+          }
+        }
+      }
+    },
+    "Types" : {
+      "localizations" : {
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "유형"
+          }
+        }
+      }
+    },
+    "Universal Links" : {
+      "localizations" : {
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "유니버설 링크"
+          }
+        }
+      }
+    },
+    "TEAMID.com.example.app (optional)" : {
+      "localizations" : {
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "TEAMID.com.example.app (선택)"
+          }
+        }
+      }
+    },
+    "Check AASA" : {
+      "localizations" : {
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "AASA 확인"
+          }
+        }
+      }
+    },
+    "Devices download the file from Apple's CDN, not from your server, so both are checked." : {
+      "localizations" : {
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "기기는 서버가 아닌 Apple CDN에서 파일을 받으므로 둘 다 확인합니다."
+          }
+        }
+      }
+    },
+    "Open as Universal Link Only" : {
+      "localizations" : {
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "유니버설 링크로만 열기"
+          }
+        }
+      }
+    },
+    "Open" : {
+      "localizations" : {
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "열기"
+          }
+        }
+      }
+    },
+    "Open Link" : {
+      "localizations" : {
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "링크 열기"
+          }
+        }
+      }
+    },
+    "“Universal Link Only” succeeds only if an installed app claims the URL; it never falls back to Safari." : {
+      "localizations" : {
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "‘유니버설 링크로만 열기’는 설치된 앱이 이 URL을 처리할 때만 성공하며, Safari로 열리지 않습니다."
+          }
+        }
+      }
+    },
+    "Your Server" : {
+      "localizations" : {
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "내 서버"
+          }
+        }
+      }
+    },
+    "Apple CDN" : {
+      "localizations" : {
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple CDN"
+          }
+        }
+      }
+    },
+    "Redirects to %@. Apple does not follow redirects." : {
+      "localizations" : {
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@(으)로 리디렉션됩니다. Apple은 리디렉션을 따라가지 않습니다."
+          }
+        }
+      }
+    },
+    "%lld bytes (limit 128 KB)" : {
+      "localizations" : {
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld바이트 (최대 128KB)"
+          }
+        }
+      }
+    },
+    "Invalid JSON" : {
+      "localizations" : {
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "올바르지 않은 JSON"
+          }
+        }
+      }
+    },
+    "Valid JSON" : {
+      "localizations" : {
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "올바른 JSON"
+          }
+        }
+      }
+    },
+    "%@ is listed" : {
+      "localizations" : {
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ 포함됨"
+          }
+        }
+      }
+    },
+    "%@ is not listed" : {
+      "localizations" : {
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ 없음"
+          }
+        }
+      }
+    },
+    "Opened." : {
+      "localizations" : {
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "열었습니다."
+          }
+        }
+      }
+    },
+    "No installed app claims this URL." : {
+      "localizations" : {
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "이 URL을 처리하는 설치된 앱이 없습니다."
+          }
+        }
+      }
+    },
+    "Could not open the URL." : {
+      "localizations" : {
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "URL을 열 수 없습니다."
+          }
+        }
+      }
+    },
+    "Timestamp" : {
+      "localizations" : {
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "타임스탬프"
+          }
+        }
+      }
+    },
+    "Paste a JWT" : {
+      "localizations" : {
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "JWT 붙여넣기"
+          }
+        }
+      }
+    },
+    "Header" : {
+      "localizations" : {
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "헤더"
+          }
+        }
+      }
+    },
+    "Payload" : {
+      "localizations" : {
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "페이로드"
+          }
+        }
+      }
+    },
+    "Times" : {
+      "localizations" : {
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "시간"
+          }
+        }
+      }
+    },
+    "Expired" : {
+      "localizations" : {
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "만료됨"
+          }
+        }
+      }
+    },
+    "Not expired" : {
+      "localizations" : {
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "만료 전"
+          }
+        }
+      }
+    },
+    "Signature" : {
+      "localizations" : {
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "서명"
+          }
+        }
+      }
+    },
+    "The signature is not verified." : {
+      "localizations" : {
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "서명은 검증하지 않습니다."
+          }
+        }
+      }
+    },
+    "Not a valid JWT." : {
+      "localizations" : {
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "올바른 JWT가 아닙니다."
+          }
+        }
+      }
+    },
+    "Text or Base64" : {
+      "localizations" : {
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "텍스트 또는 Base64"
+          }
+        }
+      }
+    },
+    "URL-safe, no padding" : {
+      "localizations" : {
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "URL-safe, 패딩 없음"
+          }
+        }
+      }
+    },
+    "Encoded" : {
+      "localizations" : {
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "인코딩 결과"
+          }
+        }
+      }
+    },
+    "Decoded" : {
+      "localizations" : {
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "디코딩 결과"
+          }
+        }
+      }
+    },
+    "Not valid Base64." : {
+      "localizations" : {
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "올바른 Base64가 아닙니다."
+          }
+        }
+      }
+    },
+    "Paste JSON" : {
+      "localizations" : {
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "JSON 붙여넣기"
+          }
+        }
+      }
+    },
+    "Sort Keys" : {
+      "localizations" : {
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "키 정렬"
+          }
+        }
+      }
+    },
+    "Formatted" : {
+      "localizations" : {
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "정렬된 JSON"
+          }
+        }
+      }
+    },
+    "Minified" : {
+      "localizations" : {
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "한 줄 JSON"
+          }
+        }
+      }
+    },
+    "Count: %lld" : {
+      "localizations" : {
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "개수: %lld"
+          }
+        }
+      }
+    },
+    "Lowercase" : {
+      "localizations" : {
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "소문자"
+          }
+        }
+      }
+    },
+    "Generate" : {
+      "localizations" : {
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "생성"
+          }
+        }
+      }
+    },
+    "Share" : {
+      "localizations" : {
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "공유"
+          }
+        }
+      }
+    },
+    "Version 4 (random) UUIDs." : {
+      "localizations" : {
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "버전 4(랜덤) UUID입니다."
+          }
+        }
+      }
+    },
+    "Now" : {
+      "localizations" : {
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "현재"
+          }
+        }
+      }
+    },
+    "Seconds" : {
+      "localizations" : {
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "초"
+          }
+        }
+      }
+    },
+    "Milliseconds" : {
+      "localizations" : {
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "밀리초"
+          }
+        }
+      }
+    },
+    "Local" : {
+      "localizations" : {
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "로컬 시간"
+          }
+        }
+      }
+    },
+    "Relative" : {
+      "localizations" : {
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "상대 시간"
+          }
+        }
+      }
+    },
+    "Timestamp → Date" : {
+      "localizations" : {
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "타임스탬프 → 날짜"
+          }
+        }
+      }
+    },
+    "Seconds or milliseconds are detected automatically." : {
+      "localizations" : {
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "초 단위와 밀리초 단위를 자동으로 구분합니다."
+          }
+        }
+      }
+    },
+    "Date → Timestamp" : {
+      "localizations" : {
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "날짜 → 타임스탬프"
+          }
+        }
+      }
+    },
+    "Date" : {
+      "localizations" : {
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "날짜"
+          }
+        }
+      }
     }
   }
 }

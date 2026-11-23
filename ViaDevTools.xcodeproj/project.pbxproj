@@ -6,9 +6,48 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		5E0A0000000000000000000A /* ShareExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 5E0A00000000000000000002 /* ShareExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		5E0A0000000000000000000C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 12AB4A1430B3D8C9002AAC34 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 5E0A00000000000000000001;
+			remoteInfo = ShareExtension;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		5E0A00000000000000000009 /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				5E0A0000000000000000000A /* ShareExtension.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		12AB4A1C30B3D8C9002AAC34 /* ViaDevTools.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ViaDevTools.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		5E0A00000000000000000002 /* ShareExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = ShareExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		5E0A00000000000000000005 /* Exceptions for "ShareExtension" folder in "ShareExtension" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = 5E0A00000000000000000001 /* ShareExtension */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		12AB4A1E30B3D8C9002AAC34 /* ViaDevTools */ = {
@@ -16,10 +55,30 @@
 			path = ViaDevTools;
 			sourceTree = "<group>";
 		};
+		5E0A00000000000000000003 /* ShareExtension */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				5E0A00000000000000000005 /* Exceptions for "ShareExtension" folder in "ShareExtension" target */,
+			);
+			path = ShareExtension;
+			sourceTree = "<group>";
+		};
+		5E0A00000000000000000004 /* Shared */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = Shared;
+			sourceTree = "<group>";
+		};
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		12AB4A1930B3D8C9002AAC34 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5E0A00000000000000000007 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -33,6 +92,8 @@
 			isa = PBXGroup;
 			children = (
 				12AB4A1E30B3D8C9002AAC34 /* ViaDevTools */,
+				5E0A00000000000000000003 /* ShareExtension */,
+				5E0A00000000000000000004 /* Shared */,
 				12AB4A1D30B3D8C9002AAC34 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -41,6 +102,7 @@
 			isa = PBXGroup;
 			children = (
 				12AB4A1C30B3D8C9002AAC34 /* ViaDevTools.app */,
+				5E0A00000000000000000002 /* ShareExtension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -55,13 +117,16 @@
 				12AB4A1830B3D8C9002AAC34 /* Sources */,
 				12AB4A1930B3D8C9002AAC34 /* Frameworks */,
 				12AB4A1A30B3D8C9002AAC34 /* Resources */,
+				5E0A00000000000000000009 /* Embed Foundation Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				5E0A0000000000000000000B /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
 				12AB4A1E30B3D8C9002AAC34 /* ViaDevTools */,
+				5E0A00000000000000000004 /* Shared */,
 			);
 			name = ViaDevTools;
 			packageProductDependencies = (
@@ -69,6 +134,27 @@
 			productName = ViaDevTools;
 			productReference = 12AB4A1C30B3D8C9002AAC34 /* ViaDevTools.app */;
 			productType = "com.apple.product-type.application";
+		};
+		5E0A00000000000000000001 /* ShareExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 5E0A0000000000000000000F /* Build configuration list for PBXNativeTarget "ShareExtension" */;
+			buildPhases = (
+				5E0A00000000000000000006 /* Sources */,
+				5E0A00000000000000000007 /* Frameworks */,
+				5E0A00000000000000000008 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				5E0A00000000000000000003 /* ShareExtension */,
+				5E0A00000000000000000004 /* Shared */,
+			);
+			name = ShareExtension;
+			productName = ShareExtension;
+			productReference = 5E0A00000000000000000002 /* ShareExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
 		};
 /* End PBXNativeTarget section */
 
@@ -81,6 +167,9 @@
 				LastUpgradeCheck = 2630;
 				TargetAttributes = {
 					12AB4A1B30B3D8C9002AAC34 = {
+						CreatedOnToolsVersion = 26.3;
+					};
+					5E0A00000000000000000001 = {
 						CreatedOnToolsVersion = 26.3;
 					};
 				};
@@ -101,12 +190,20 @@
 			projectRoot = "";
 			targets = (
 				12AB4A1B30B3D8C9002AAC34 /* ViaDevTools */,
+				5E0A00000000000000000001 /* ShareExtension */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
 		12AB4A1A30B3D8C9002AAC34 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5E0A00000000000000000008 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -123,7 +220,22 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		5E0A00000000000000000006 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		5E0A0000000000000000000B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 5E0A00000000000000000001 /* ShareExtension */;
+			targetProxy = 5E0A0000000000000000000C /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		12AB4A2530B3D8CD002AAC34 /* Debug */ = {
@@ -252,12 +364,12 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = ViaDevTools/ViaDevTools.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 49J9MU43V5;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				CODE_SIGN_ENTITLEMENTS = ViaDevTools/ViaDevTools.entitlements;
 				INFOPLIST_KEY_NFCReaderUsageDescription = "Used to read and write NFC tags you choose to scan.";
 				INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription = "Used to scan for nearby Bluetooth LE devices and show their advertisement data.";
 				INFOPLIST_KEY_NSUserTrackingUsageDescription = "Used only to display this device's advertising identifier (IDFA) for development and testing.";
@@ -288,12 +400,12 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = ViaDevTools/ViaDevTools.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 49J9MU43V5;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				CODE_SIGN_ENTITLEMENTS = ViaDevTools/ViaDevTools.entitlements;
 				INFOPLIST_KEY_NFCReaderUsageDescription = "Used to read and write NFC tags you choose to scan.";
 				INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription = "Used to scan for nearby Bluetooth LE devices and show their advertisement data.";
 				INFOPLIST_KEY_NSUserTrackingUsageDescription = "Used only to display this device's advertising identifier (IDFA) for development and testing.";
@@ -309,6 +421,62 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = app.vialive.ViaDevTools;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		5E0A0000000000000000000D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 49J9MU43V5;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = ShareExtension/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = ViaDevTools;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = app.vialive.ViaDevTools.ShareExtension;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		5E0A0000000000000000000E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 49J9MU43V5;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = ShareExtension/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = ViaDevTools;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = app.vialive.ViaDevTools.ShareExtension;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_APPROACHABLE_CONCURRENCY = YES;
 				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
@@ -336,6 +504,15 @@
 			buildConfigurations = (
 				12AB4A2830B3D8CD002AAC34 /* Debug */,
 				12AB4A2930B3D8CD002AAC34 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		5E0A0000000000000000000F /* Build configuration list for PBXNativeTarget "ShareExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5E0A0000000000000000000D /* Debug */,
+				5E0A0000000000000000000E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
